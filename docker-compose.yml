@@ -3,18 +3,23 @@ services:
   nginx:
     container_name: nginx01
     image: nginx:alpine
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
     ports:
       - '80:80'
       - '443:443'
     volumes:
       - ./nginx/config.conf:/etc/nginx/conf.d/config.conf
-      - ./thetechhaven.com/client/build:/var/www/thetechhaven.com/html
-      - ./nginx/etc/letsencrypt:/etc/letsencrypt
       - ./nginx/var/log/nginx:/var/log/nginx
+      - ./thetechhaven.com/client/build:/var/www/thetechhaven.com/html
+      - ./nginx/certbot/www:/var/www/certbot
+      - ./nginx/certbot/conf:/etc/letsencrypt
     networks:
       - frontend
-      - backend
+      - backend 
     restart: always
+  certbot:
+    image: certbot/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
   api:
     container_name: api01
     build: .
