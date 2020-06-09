@@ -7,10 +7,10 @@ services:
       - '80:80'
       - '443:443'
     volumes:
-      - ./nginxdata/config.conf:/etc/nginx/conf.d/config.conf
-      - ./nginxdata/var/www/thetechhaven.com/html:/var/www/thetechhaven.com/html
-      - ./nginxdata/etc/letsencrypt:/etc/letsencrypt
-      - ./nginxdata/var/log/nginx:/var/log/nginx
+      - ./nginx/config.conf:/etc/nginx/conf.d/config.conf
+      - ./thetechhaven.com/client/build:/var/www/thetechhaven.com/html
+      - ./nginx/etc/letsencrypt:/etc/letsencrypt
+      - ./nginx/var/log/nginx:/var/log/nginx
     networks:
       - frontend
       - backend
@@ -29,6 +29,9 @@ services:
       CLIENT_ID: ${CLIENT_ID}
       CLIENT_SECRET: ${CLIENT_SECRET}
       SESSION_SECRET: ${SESSION_SECRET}
+      BOT_TOKEN: ${BOT_TOKEN}
+      PREFIX: ${PREFIX}
+      GUILD_ID: ${GUILD_ID}
       NODE_ENV: production
     ports:
       - '5000:5000'
@@ -41,44 +44,11 @@ services:
   mongodb:
     container_name: mongodb01
     image: mongo
-    networks:
-      - backend
-  ghost:
-    container_name: ghost01
-    image: ghost:alpine
-    depends_on: 
-      - db
-    restart: always
-    environment:
-      url: ${GHOST_URL}
-      database__client: 'mysql'
-      database__connection__host: 'db'
-      database__connection__user: $MYSQL_USER
-      database__connection__password: $MYSQL_PASSWORD
-      database__connection__database: $MYSQL_DATABASE
-      mail__transport: 'SMTP'
-      mail__options__service: 'Mailgun'
-      mail__options__auth__user: $SMTP_USER
-      mail__options__auth__pass: $SMTP_PASS
-      NODE_ENV: production
     volumes:
-      - data:/var/lib/ghost/content/
-    networks:
-      - frontend
-      - backend
-  db:
-    container_name: maria01
-    image: mariadb:latest
-    volumes:
-      - mariadb:/var/lib/mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: $ROOT_PASSWORD
-      MYSQL_DATABASE: $MYSQL_DATABASE
-      MYSQL_USER: $MYSQL_USER
-      MYSQL_PASSWORD: $MYSQL_PASSWORD
+      - mongodb:/data/configdb
+      - mongodb:/data/db
     networks:
       - backend
-    restart: always
 networks:
   frontend:
     driver: bridge
@@ -92,6 +62,5 @@ networks:
      config:
        - subnet: 172.16.199.0/24
 volumes:
-  mariadb:
-  data:
   nodejs:
+  mongodb:
