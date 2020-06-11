@@ -1,5 +1,6 @@
 #!/bin/sh
 
+cd /home/USER/docker/tech-haven-docker
 if [ ! -d "thetechhaven.com"  ]; then
   echo "Cloning repo"
   git clone https://github.com/Tech-Haven/thetechhaven.com.git
