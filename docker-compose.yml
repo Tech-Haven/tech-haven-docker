@@ -20,6 +20,8 @@ services:
   certbot:
     image: certbot/certbot
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+    networks:
+      - backend
   api:
     container_name: api01
     build: .
