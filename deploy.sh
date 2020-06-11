@@ -8,6 +8,11 @@ else
   git -C thetechhaven.com/  pull origin master
 fi
 
+# Change USER and directory to correct path
+echo "Building frontend"
+docker run -v /home/USER/docker/tech-haven-docker/thetechhaven.com/client:/client node npm install --prefix /client
+docker run -v /home/USER/docker/tech-haven-docker/thetechhaven.com/client:/client node npm run build --prefix /client
+
 echo "Restarting server..."
 
 docker-compose down
