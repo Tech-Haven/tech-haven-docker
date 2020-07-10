@@ -10,7 +10,7 @@ services:
     volumes:
       - ./nginx/config.conf:/etc/nginx/conf.d/config.conf
       - ./nginx/var/log/nginx:/var/log/nginx
-      - ./control.thetechhaven.com.com/client/build:/var/www/control.thetechhaven.com.com/html
+      - ./control.thetechhaven.com/client/build:/var/www/control.thetechhaven.com/html
       - ./nginx/certbot/www:/var/www/certbot
       - ./nginx/certbot/conf:/etc/letsencrypt
     networks:
