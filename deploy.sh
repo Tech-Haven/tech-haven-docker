@@ -1,18 +1,18 @@
 #!/bin/sh
 
 cd /home/USER/docker/tech-haven-docker
-if [ ! -d "thetechhaven.com"  ]; then
+if [ ! -d "control.thetechhaven.com.com"  ]; then
   echo "Cloning repo"
-  git clone https://github.com/Tech-Haven/thetechhaven.com.git
+  git clone https://github.com/Tech-Haven/control.thetechhaven.com.com.git
 else
   echo "Pulling from master"
-  git -C thetechhaven.com/  pull origin master
+  git -C control.thetechhaven.com.com/  pull origin master
 fi
 
 # Change USER and directory to correct path
 echo "Building frontend"
-docker run -v /home/USER/docker/tech-haven-docker/thetechhaven.com/client:/client node npm install --prefix /client
-docker run -v /home/USER/docker/tech-haven-docker/thetechhaven.com/client:/client node npm run build --prefix /client
+docker run -v /home/USER/docker/tech-haven-docker/control.thetechhaven.com.com/client:/client node npm install --prefix /client
+docker run -v /home/USER/docker/tech-haven-docker/control.thetechhaven.com.com/client:/client node npm run build --prefix /client
 
 echo "Restarting server..."
 
