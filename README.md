@@ -1,6 +1,6 @@
 # Tech Haven Docker
 
-Repository for creating a docker enviroment for our Ghost CMS blog and website.
+Repository for creating a docker enviroment for our website.
 
 ### Enviromental Variables
 
@@ -17,7 +17,3 @@ $ npm run build --prefix control.thetechhaven.com.com/client
 $ cp -R control.thetechhaven.com.com/client/* var/www/control.thetechhaven.com.com/html
 $ docker-compose up -d
 ```
-
-### Todo
-
-- Automate letsencrypt deployment of certificates
