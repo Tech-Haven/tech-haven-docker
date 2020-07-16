@@ -38,7 +38,9 @@ services:
       SESSION_SECRET: ${SESSION_SECRET}
       BOT_TOKEN: ${BOT_TOKEN}
       PREFIX: ${PREFIX}
+      FORUMS_TOKEN: ${FORUMS_TOKEN}
       GUILD_ID: ${GUILD_ID}
+
       NODE_ENV: production
     ports:
       - '5000:5000'
