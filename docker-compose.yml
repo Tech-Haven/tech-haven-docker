@@ -40,7 +40,7 @@ services:
       PREFIX: ${PREFIX}
       FORUMS_TOKEN: ${FORUMS_TOKEN}
       GUILD_ID: ${GUILD_ID}
-
+      ONE_URI: ${ONE_URI}
       NODE_ENV: production
     ports:
       - '5000:5000'
