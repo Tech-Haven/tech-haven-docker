@@ -3,7 +3,7 @@ services:
   nginx:
     container_name: nginx01
     image: nginx:alpine
-    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+    command: '/bin/sh -c ''while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g "daemon off;"'''
     ports:
       - '80:80'
       - '443:443'
@@ -15,7 +15,7 @@ services:
       - ./nginx/certbot/conf:/etc/letsencrypt
     networks:
       - frontend
-      - backend 
+      - backend
     restart: always
   certbot:
     image: certbot/certbot
@@ -41,6 +41,8 @@ services:
       FORUMS_TOKEN: ${FORUMS_TOKEN}
       GUILD_ID: ${GUILD_ID}
       ONE_URI: ${ONE_URI}
+      THLAB_API_USER: ${THLAB_API_USER}
+      THLAB_API_TOKEN: ${THLAB_API_TOKEN}
       NODE_ENV: production
     ports:
       - '5000:5000'
@@ -62,14 +64,14 @@ networks:
   frontend:
     driver: bridge
     ipam:
-     config:
-       - subnet: 172.16.198.0/24
+      config:
+        - subnet: 172.16.198.0/24
   backend:
     driver: bridge
     internal: true
     ipam:
-     config:
-       - subnet: 172.16.199.0/24
+      config:
+        - subnet: 172.16.199.0/24
 volumes:
   nodejs:
   mongodb:
