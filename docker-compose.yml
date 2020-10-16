@@ -16,12 +16,18 @@ services:
     networks:
       - frontend
       - backend
-    restart: always
+    depends_on:
+      - api
   certbot:
     image: certbot/certbot
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+    volumes:
+      - ./nginx/certbot/www:/var/www/certbot
+      - ./nginx/certbot/conf:/etc/letsencrypt
     networks:
-      - backend
+      - frontend
+    depends_on:
+      - nginx
   api:
     container_name: api01
     build: .
