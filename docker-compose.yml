@@ -26,6 +26,7 @@ services:
       - ./nginx/certbot/conf:/etc/letsencrypt
     networks:
       - frontend
+      - backend
     depends_on:
       - nginx
   api:
